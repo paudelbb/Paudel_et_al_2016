@@ -73,11 +73,12 @@ dn <- data.frame()
 for(i in 1:1000){
   pars <- nd[i,]
   out <- as.data.frame(solvePop(pars, times))
-  out <- out[,c("time", "nl2")]
+  #out <- out[,c("time", "nl2")]
   out$id <- i
   dn <- rbind(dn, out)
 }
-# 
+#
+dn$cell = cell
 cl1 <- rainbow(length(unique(dn$id)))
 par(ps = 12, cex = 1, cex.axis = 1)
 plot(nl2~time, data=dn, type="n", ylim=c(-2,1), xlim=c(0,300), ylab="", xlab="")
