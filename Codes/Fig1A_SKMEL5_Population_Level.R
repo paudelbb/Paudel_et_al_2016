@@ -37,9 +37,48 @@ ggplot(data = s1, aes(x=s1$Time, y=s1$nl2, col=Date))+
   ggsave(paste0(cell, " + ", cnc, "μΜ.pdf"), path=output, width=3, height=3)
 
 #=====================================================================================================
-
+# Calculate DIP rates
 #=====================================================================================================
 
+data <- read.csv("Population_Response_CellLines.csv", header=T, sep=",")
+data$drug = "plx"
+cnc <- 8
+s1 <- subset(data, data$conc==cnc)
+s1$Date <- as.character(s1$Date)
+#=====================================================================================================
+# calculate DIP rates
+#=====================================================================================================
 
-
-
+dn = data.frame()
+for(i in unique(s1$Date)){
+  temp = subset(s1, s1$Date==i)
+  for(j in unique(temp$CellLine)){
+    temp1 = subset(temp, temp$CellLine==j)
+    for(l in unique(temp1$conc)){
+      temp3 = subset(temp1, temp1$conc==l)
+      for(k in unique(temp3$Well)){
+        temp2 = subset(temp3, temp3$Well==k)
+        s = subset(temp2, temp2$Time>24 & temp2$Time<=100)
+        df = data.frame(Date = unique(s$Date), Cell = unique(s$CellLine), Treatment = unique(s$drug),
+                        conc = unique(s$conc), Well = unique(s$Well), 
+                        rates = coef(lm(l2~Time, data=s))[2])
+        dn = rbind(dn, df)
+      }
+    }
+  }
+}
+calcRates = dn
+df = summarySE(calcRates, measurevar = "rates", groupvars = c("Cell", "Treatment", "conc"))
+#=====================================================================================================
+df = df[(order(df$rates)),]
+par(ps = 10, cex = 1, cex.axis = 1)
+mp = barplot2(df$rates, beside = T, 
+              col=rainbow(nrow(df)), ylab="", 
+              main="", font.main=5, sub = "", col.sub = mybarcol, ylim=c(-0.04, 0.04), 
+              plot.ci = T, ci.l = df$rates-df$se, ci.u = df$rates+df$se, 
+              plot.grid = T)
+group = c(as.character((df$Cell)))
+group = noquote(group)
+labels = paste0(group)
+text(mp, par("usr")[3], labels = labels, srt = 45, adj = c(1.1, 1.1), xpd = T, cex = 0.7)
+#=====================================================================================================

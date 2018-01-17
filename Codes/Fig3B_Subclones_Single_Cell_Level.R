@@ -20,6 +20,8 @@ output = paste0(output, "/", fig)
 #=====================================================================================================
 data <- read.csv("SKMEL5_Subclones_SingleCell_Response.csv", header=T, sep=",")
 data <- subset(data, data$phase=="idling")
+
+
 # deg is for death events, div is for division events, doe is for end of experiment events
 deg <- subset(data, data$Died==TRUE)
 div <- subset(data, data$Died==FALSE)

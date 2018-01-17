@@ -20,7 +20,7 @@ graph1 <- function(data, time, nl2, CellLine, title, sub, col=col, xmin, xmax, y
   {
     ccc <- CellLine[tc==CellLine]
     lines(time[tc==CellLine], nl2[tc==CellLine], col= col, lwd=1.0, lty=1)
-    text((max(d$Time)-4), nl2[tc==CellLine][length(ccc)], label=paste0("SC", substr(tc,16, 17),''), pos=4, cex=0.8)
+    text((max(d$Time)-0), nl2[tc==CellLine][length(ccc)], label=paste0("SC", substr(tc,16, 17),''), pos=4, cex=0.8)
   }
 }
 #=====================================================================================================

@@ -30,6 +30,36 @@ for(i in unique(s$cID)){
 s <- subset(dn, dn$Time>=0)
 
 #=====================================================================================================
+#=====================================================================================================
+dn = data.frame()
+for(i in unique(s$Date)){
+  temp = subset(s, s$Date==i)
+  for(j in unique(temp$cID)){
+  t2 = subset(temp, temp$cID==j)
+  t2 = subset(t2, t2$Time<=60)
+  dc = data.frame(Date = unique(t2$Date), cID = unique(t2$cID), 
+                drug = unique(t2$drug),rate1 = coef(lm(nl2~Time, data=t2))[2])
+    dn = rbind(dn, dc)
+  }
+}
+ds = dn[(order(dn$rate1)),]
+ds$se = 0.00001
+#pdf(paste0(output,"/","SKMEL5 Sublines Short-term DIP rates.pdf"), width=2.5, height=3.2)
+par(ps = 10, cex = 1, cex.axis = 1)
+mp = barplot2(ds$rate1, beside = T,
+              col=grey.colors(nrow(ds)), ylab="",
+              main="", font.main=5, sub = "", col.sub = mybarcol, 
+              plot.ci = T, ci.l = ds$rate1-ds$se, ci.u = ds$rate1+ds$se, ylim = c(-0.04, 0.04),
+              plot.grid = T, horiz = F, cex.axis = 0.7)
+# group = c(as.character((ds$cID)))
+# group = noquote(group)
+# labels = paste0("SC",group)
+#text(mp, par("usr")[3], labels = labels, srt = 45, adj = c(1.1, 1.1), xpd = T, cex = 0.2)
+#dev.off()
+
+
+
+#=====================================================================================================
 # Plot the responses of single-cell-derived subclones
 #=====================================================================================================
 
@@ -37,7 +67,7 @@ pdf(paste0(output,"/","SKMEL5 + Sublines_Initial_Screen.pdf"), width=3, height=4
 cl1 <- grey.colors(length(unique(s$cID)))
 par(ps = 12, cex = 1, cex.axis = 1)
 plot(nl2~Time, data=s, type="n", ylim=c(-1.2,1.2), xlim=c(0,70), ylab="", xlab="")
-for(w in 1:length(unique(s$cID))){
+for(w in (unique(s$cID))){
   temp <- subset(s, s$cID==w)
   lines(temp$Time, temp$nl2, col=cl1[w], lwd=2)
 }
@@ -60,6 +90,7 @@ abline(v=0, lty=2)
 abline(h=0, lty=2)
 dev.off()
 
-
+#=====================================================================================================
+#=====================================================================================================
 
 

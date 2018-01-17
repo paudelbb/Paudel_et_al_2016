@@ -12,15 +12,15 @@ library(gplots)
 require(ggplot2)
 setwd("~/Paudel_et_al_2016/SourceData") # Set the working directory;
 # Set the output for plots
-output <- paste0(substr(getwd(), 1, (nchar(getwd())-nchar("SourceData"))), "Figures") 
-fig = "Fig1" # Which figure is this in paper?
+output <- "/Users/paudelbb/Dropbox/Paudel_et_al_2017_idle_paper" 
+fig = "DefenseTalk" # Which figure is this in paper?
 output = paste0(output, "/", fig)
 #=====================================================================================================
 # Read the experimental data
 #=====================================================================================================
 
 data <- read.csv("Population_Response_CellLines.csv", header=T, sep=",")
-
+data = subset(data, data$Time <=350)
 #=====================================================================================================
 # A375 Population Level Response
 #=====================================================================================================
@@ -117,4 +117,19 @@ ggplot(data = s1, aes(x=s1$Time, y=s1$nl2, col=Date))+
   ggsave(paste0(cell, " + ", cnc, "μΜ.pdf"), path=output, width=3, height=3)
 
 #=====================================================================================================
+# SKMEL5 Population Level Response
+#=====================================================================================================
 
+cell <- "SKMEL5"
+cnc <- 8
+s1 <- subset(data, data$CellLine==cell & data$conc==cnc)
+s1$Date <- as.character(s1$Date)
+
+ggplot(data = s1, aes(x=s1$Time, y=s1$nl2, col=Date))+ 
+  theme_bw()+geom_smooth(span=.25, aes(group=1), method = "loess", size=.5, alpha=0.6, col="blue")+ 
+  scale_colour_manual(values="blue") + ylim(-3,3)+ xlim(0,360)+
+  theme(legend.position="none") + theme(axis.text=element_text(size=12)) +
+  theme(text = element_text(size=12)) + ggtitle(paste0()) + labs(x="", y="") +
+  ggsave(paste0(cell, " + ", cnc, "μΜ.pdf"), path=output, width=3, height=3)
+#=====================================================================================================
+#=====================================================================================================

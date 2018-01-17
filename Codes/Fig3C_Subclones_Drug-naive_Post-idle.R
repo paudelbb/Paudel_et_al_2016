@@ -41,8 +41,8 @@ d1 <- subset(dt1, dt1$cond=="Untreated" & dt1$conc==1)
 d2 <- subset(dt1, dt1$cond=="Postidle"  & dt1$conc==1)
 pdf(paste0(output, "/SKMEL5_Subclones_Trametinib.pdf"), width=3, height=4.2)
 par(ps = ps, cex = 1, cex.axis = 1)
-graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 120, -1.8, 1)
-graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 120, -1.8, 1)
+graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 120, -2.5, 1)
+graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 120, -2.5, 1)
 dev.off()
 #=====================================================================================================
 # Cisplatin Response in drug-naive vs post-idle cells
@@ -51,10 +51,10 @@ inh <- "Cisplatin"
 dt1 <- subset(dt, dt$drug==inh)
 d1 <- subset(dt1, dt1$cond=="Untreated" & dt1$conc==5)
 d2 <- subset(dt1, dt1$cond=="Postidle"  & dt1$conc==5)
-pdf(paste0(output, "/SKMEL5_Subclones_Cisplatin.pdf"), width=3, height=4.2)
+pdf(paste0(output, "/SKMEL5_Subclones_Cisplatin_early.pdf"), width=3, height=4.2)
 par(ps = ps, cex = 1, cex.axis = 1)
-graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 120, -1.8, 1)
-graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 120, -1.8, 1)
+graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 120, -2.5, 1)
+graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 120, -2.5, 1)
 dev.off()
 #=====================================================================================================
 # BKM120 response in drug-naive vs post-idle cells
@@ -69,8 +69,8 @@ d1 <- subset(dt1, dt1$cond=="Untreated" & dt1$conc==1)
 d2 <- subset(dt1, dt1$cond=="Postidle"  & dt1$conc==1)
 pdf(paste0(output, "/SKMEL5_Subclones_BKM120.pdf"), width=3, height=4.2)
 par(ps = ps, cex = 1, cex.axis = 1)
-graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 65, -1.8, 1)
-graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 65, -1.8, 1)
+graph1(d1, d1$Time, d1$nl2, d1$CellLine, title="", sub="", col=c("black"), 0, 65, -2.5, 1)
+graph2(d2, d2$Time, d2$nl2, d2$CellLine, title="", sub="", col=c("red"), 0, 65, -2.5, 1)
 dev.off()
 
 #=====================================================================================================

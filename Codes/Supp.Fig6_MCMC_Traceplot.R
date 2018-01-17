@@ -23,14 +23,23 @@ files <- grep(".RData", dir(), value=T)
 # ===========================================================================================================
 # 
 # ===========================================================================================================
+load("MCMC1_A2058_150000_Run.RData") # A2058
+MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
+pdf(paste0(output, "/", "A2058_traceplot.pdf"), width=5.5, height=4)
+plot(MCMC1)
+dev.off()
+
 load("MCMC1_A375_150000_Run.RData") # A375
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "A375_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
 
 load("MCMC_Subclones_Mix_150000_Run.RData") # SKMEL5
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "SKMEL5_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
@@ -38,30 +47,35 @@ dev.off()
 
 load("MCMC1_SKMEL19_150000_Run.RData") # SKMEL19
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "SKMEL19_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
 
-load("MCMC1_SKMEL28_150000_Run.RData") # SKMEL28
-MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+load("MCMC1_SKMEL28_2e+05_Run.RData") # SKMEL28
+MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/1.6),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "SKMEL28_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
 
 load("MCMC1_WM88_150000_Run.RData") # WM88
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "WM88_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
 
 load("MCMC1_WM164_1e_05_Run.RData") # WM164
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "WM164_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()
 
 load("MCMC1_WM793_150000_Run.RData") # WM793
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
+colnames(MCMC1$pars) = c("k_rs", "k_sr", "k_es", "k_se", "R0", "S0")
 pdf(paste0(output, "/", "WM793_traceplot.pdf"), width=5.5, height=4)
 plot(MCMC1)
 dev.off()

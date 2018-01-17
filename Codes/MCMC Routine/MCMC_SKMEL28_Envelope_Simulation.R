@@ -58,7 +58,7 @@ mod <- function(t, state, pars){
 # ===========================================================================================================
 set.seed(12345)
 files <- grep(".RData", dir(), value=T)
-chain1 <- load("MCMC1_SKMEL28_150000_Run.RData")
+chain1 <- load("MCMC1_SKMEL28_2e+05_Run.RData")
 dim(MCMC1$pars)
 MCMC1$pars <- MCMC1$pars[-(1:dim(MCMC1$pars)[1]/2),]
 rates <- data.frame(MCMC1$pars)

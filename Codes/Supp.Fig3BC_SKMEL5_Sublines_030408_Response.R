@@ -45,4 +45,25 @@ pdf(paste0(output,"/","Fraction of control_idling_subclones.pdf"), width=3.5, he
 boxplot(fCont~CellLine, data=data, ylim=c(0,1))
 dev.off()
 
+#=====================================================================================================
+
+#=====================================================================================================
+
+data <- read.csv("SKMEL5_Subclones030408_Population_Level.csv", header=T, sep=",")
+data <- data[(data$conc %in% c(0,8)),]
+data <- subset(data, data$Time ==208.5317)
+dn = data.frame()
+for(i in unique(data$CellLine)){
+  temp = subset(data, data$CellLine==i)
+  for(j in unique(temp$rep)){
+    t = subset(temp, temp$rep==j)
+    t$rel = t$Cell.Nucleus/t$Cell.Nucleus[t$conc==0]
+    dn = rbind(dn, t)
+  }
+}
+dn = subset(dn, dn$conc==8)
+pdf(paste0(output, "/SKMEL5_SC030408_idling_state_cell_fraction.pdf"), height=4, width=3)
+par(ps = 8, cex = 1, cex.axis = 1)
+boxplot(rel~CellLine, data=dn, ylim=c(0,1.), main="", xlab="")
+dev.off()
 

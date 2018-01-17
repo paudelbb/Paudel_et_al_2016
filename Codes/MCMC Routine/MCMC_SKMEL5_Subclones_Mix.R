@@ -113,6 +113,20 @@ iter = 150000 # Number of iterations to run for each MCMC
 var0 = Fit$var_ms_unweighted # Var0 to scale each variable independently, obtained from modFit results.
 cov0 = summary(Fit)$cov.scaled * 2.4^2/6 #Parameter covariance is defined as 1/(0.5*H)*(sum of squared residuals)
 cov = (1/(0.5*Fit$hessian))*Fit$ssr
+
+# ===========================================================================================================
+# Define prior distributions for each parameter
+# ===========================================================================================================
+n = 75000
+p1 = rnorm(n, mean = pars[1], sd = var0)
+p2 = rnorm(n, mean = pars[2], sd = var0)
+p3 = rnorm(n, mean = pars[3], sd = var0)
+p4 = rnorm(n, mean = pars[4], sd = var0)
+prior = data.frame(k_ab = p1, k_ba = p2, k_cb = p3, k_bc = p4)
+write.csv(prior, file=paste0(output, "/prior", cell, ".csv"))
+
+
+
 # ===========================================================================================================
 # Run MCMC algorithms
 # ===========================================================================================================

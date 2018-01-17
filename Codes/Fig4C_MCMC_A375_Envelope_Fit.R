@@ -26,15 +26,33 @@ data <- s1
 # ===========================================================================================================
 
 dn <- read.csv(paste0(getwd(), "/MCMC_ensembles_", cell,".csv"))
+dn$CellLine = cell
+source("~/Paudel_et_al_2016/Codes/summarySE.R")
+df1 <- summarySE(dn, measurevar="nl2", groupvars=c("time"))
+df1$CellLine = cell
+colnames(df1) = c("x", "N", "means", "sd", "se", "ci", "CellLine")
 
 # ===========================================================================================================
 #               Plot experimental data with 1000 mcMC emsembles
 # ===========================================================================================================
 ggplot(data = data, aes(x=data$Time, y=data$nl2, col=CellLine)) +
   theme_bw() + geom_smooth(span=.35, aes(fill=CellLine), fill = "grey", alpha=0.4, data=data, 
-  method = "loess", size=.5, level=0.95)+ 
-  scale_colour_manual(values=c("black")) + ylim(-3.0, 2.0) + xlim(0,300)+
+                           method = "loess", size=.5, level=0.95)+ 
+  scale_colour_manual(values=c("black")) + ylim(-3, 2) + xlim(0,300)+
   theme(legend.position="none") + 
-  geom_line(aes(x=dn$time, y=dn$nl2), data=dn, col="blue", alpha=0.05)+ ggtitle("")+ labs(x="", y="") +
-  theme(axis.text=element_text(size=12))+theme(text = element_text(size=10)) + 
-  ggsave(paste0(cell, " + ", "MCMC_envelope", ".png"), path=output, width=3, height=3)
+  geom_line(data = df1,aes(x=x,y=means), col="red") + 
+  geom_errorbar(data=df1, aes(x=x, ymin =means-sd, ymax=means+sd), inherit.aes=F, col="blue", alpha=0.4) +
+  ggtitle("")+ labs(x="", y="") +
+  theme(axis.text=element_text(size=10))+theme(text = element_text(size=10)) + 
+  ggsave(paste0(cell, " + ", "MCMC_envelope", ".pdf"), path=output, width=3, height=3)
+
+
+
+# ggplot(data = data, aes(x=data$Time, y=data$nl2, col=CellLine)) +
+#   theme_bw() + geom_smooth(span=.35, aes(fill=CellLine), fill = "grey", alpha=0.4, data=data, 
+#   method = "loess", size=.5, level=0.95)+ 
+#   scale_colour_manual(values=c("black")) + ylim(-3.0, 2.0) + xlim(0,300)+
+#   theme(legend.position="none") + 
+#   geom_line(aes(x=dn$time, y=dn$nl2), data=dn, col="blue", alpha=0.05)+ ggtitle("")+ labs(x="", y="") +
+#   theme(axis.text=element_text(size=12))+theme(text = element_text(size=10)) + 
+#   ggsave(paste0(cell, " + ", "MCMC_envelope", ".png"), path=output, width=3, height=3)
